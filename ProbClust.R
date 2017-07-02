@@ -51,12 +51,11 @@ ProbClustVAR1 <- function(X, Y, nObs_per_pers, nPersons, nClusters, nObs, nRando
     RegrCoeff[, , run] =  ProbRegrCoeff
     
   }
-  # Use Mclust() to cluster using model-based hierarchical agglomerative clustering as rational start
+  # Use Mclust() to cluster using model-based hierarchical agglomerative clustering results to initialize EM
   if(SmartStart){
-    # mclust mod uses model-based hierarchical agglomerative clustering results to initialize EM
     mod <- Mclust(RegrModel_per_pers, G = nClusters)
     
-    # Make ProbRegrCoeff have same dimensions than RegrCoeff nVar+1 by (nVAr*nCluster)
+    # Make ProbRegrCoeff have dimensions nVar+1 by (nVAr*nCluster)
     ProbRegrCoeff <- matrix(summary(mod, parameters = T)$mean , nrow = (numberVaribales + 1))
     
     allFit[(nRandomStarts + SmartStart)] = mod$bic
