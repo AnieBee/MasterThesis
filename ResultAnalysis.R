@@ -30,7 +30,7 @@ NonProb_Prob <- 2 # First dimension: Non-probalistic (Bulteel) clustering Model 
 length(which(is.na(ProbClustDataResults$ARI)))
 length(which(is.na(BulteelDataResults$ARI)))
 
-## Data Cleaning
+## Load data
 BoolProbClustDataUsed <- # Assign 0 or 1 
 
 if(BoolProbClustDataUsed){#ProbClust Data is used
@@ -44,7 +44,7 @@ if(BoolProbClustDataUsed){#ProbClust Data is used
   MahalanobisMean <- BulteelDataResults$MahalanobisDistance
   AttractionRates <- BulteelDataResults$AttractionRates
 }
-# Divide the Overall Mahalanobis Distances by the number of clusters to get the Mean value
+# Mahalanobis Distance/ MahalanobisMean contain mean Euclidean distances
 
 ## ANOVA ARI ##-----------------
 dimnames(ARI)[[1]] <- c("NonProbModel", "ProbModel")
@@ -74,39 +74,7 @@ model.tables(ANOVA, type = "means")
 etasq(ANOVA)
 which(etasq(ANOVA)>.1)
 
-
-## ANOVA ARI[1, ..] ##-----------------
-ARI <- BulteelDataResults$ARI[2, , , , , , ]
-dimnames(ARI)[[1]] <- c("30Pers", "60Pers", "120Pers") #nPersons
-dimnames(ARI)[[2]] <- c("50Obs", "100Obs", "500Obs") #Observations
-dimnames(ARI)[[3]] <- c("EqualProportion", "MinorityCluster", "MajorityCluster") #Clustersize
-dimnames(ARI)[[4]] <- c("2CL", "4CL") #nClusters
-dimnames(ARI)[[5]] <- c("SmallDistance", "MediumDistance", "LargeDistance") #Distance
-
-MeltARI <- melt.array(ARI)
-names(MeltARI) <- c("nPers", "nObs", "ClusterSize", "nClusters", "Distance", "Rep", "value" )
-str(MeltARI)
-
-ANOVA <- aov(value ~ nPers + nObs + ClusterSize + nClusters + Distance +
-               nPers*nObs + nPers*ClusterSize + nPers*nClusters + nPers*Distance +
-               nObs*ClusterSize + nObs*nClusters + nObs*Distance +
-               ClusterSize*nClusters + ClusterSize*Distance +
-               nClusters*Distance
-             , data = MeltARI)
-
-summary(ANOVA)
-anova(ANOVA)
-Anova(ANOVA)
-model.tables(ANOVA, type = "effects")
-model.tables(ANOVA, type = "means")
-etasq(ANOVA)
-which(etasq(ANOVA)>.1)
-
-
-
-
-
-## Mahalanobis ARI ##-----------------
+## ANOVA Mahalanobis ##-----------------
 dimnames(MahalanobisMean)[[1]] <- c("NonProbModel", "ProbModel")
 dimnames(MahalanobisMean)[[2]] <- c("30Pers", "60Pers", "120Pers") #nPersons
 dimnames(MahalanobisMean)[[3]] <- c("50Obs", "100Obs", "500Obs") #Observations
