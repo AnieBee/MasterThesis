@@ -26,10 +26,6 @@ VariancePhi_kqs <- .025
 NonProb_Prob <- 2 # First dimension: Non-probalistic (Bulteel) clustering Model was used, 2nd dimension: Prob Clust Model employed
 
 #ARI[ NonProbProb, i, l, k, j, m, r]
-### First Steps
-length(which(is.na(ProbClustDataResults$ARI)))
-length(which(is.na(BulteelDataResults$ARI)))
-
 ## Load data
 BoolProbClustDataUsed <- # Assign 0 or 1 
 
