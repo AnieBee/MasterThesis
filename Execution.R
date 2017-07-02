@@ -109,7 +109,8 @@ for(a in 0:BoolProbClustDataUsed){
               ARI[ 1, i, l, k, j, m, r] <- adjustedRandIndex(TruePartition, FitClVAR1modelList$Pmrvec)
               
               ### Mahalanobis distance ###
-              # distance from every clusters estimated parameters to the "true GMM" parameters 
+              # distance from every clusters estimated parameters to the true clusterwise VAR(1) slopes 
+              # is in fact Eucliedean distance
               MahalanobisSum <- 0 
               for(n in 1:nClusters[j]){
                 Increment <- dist(rbind(matrix(SlopeEstimates[[j]][  , , 1, i, k, l, m, r], 
@@ -136,7 +137,8 @@ for(a in 0:BoolProbClustDataUsed){
               ARI[ 2, i, l, k, j, m, r] <- adjustedRandIndex(TruePartition, ProbClustMod$Pmrvec)
               
               ### Mahalanobis distance ###
-              # distance from every clusters estimated parameters to the true parameters 
+              # distance from every clusters estimated parameters to the true clusterwise VAR(1) slopes 
+              # is in fact Eucliedean distance
               MahalanobisSum <- 0 
               for(n in 1:nClusters[j]){
                 Increment <- dist(rbind(matrix(SlopeEstimates[[j]][  , , 2, i, k, l, m, r], 
