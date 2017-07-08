@@ -125,6 +125,8 @@ for(i in 1:length(nPersons)){
                             # +1 added to Observations so X = Data - last Observation and Y = Data - first Observation
                             for(q in 1:nPerClust[n]){# n gives the number of current evaluated cluster
                                 cat(q, nPerClust[n], "\n") # q starts at 1 for new cluster, q is used as counter for people in the current cluster
+                                # varima.sim() version 2.1-4 https://github.com/cran/portes/blob/master/R/varima.sim.R
+                                # intercepts are not specified, default value of zero is used
                                 Data <- varima.sim(list(ar=Phi_k, ma= NULL),n= (Observations[l] +1), k = numberVaribales, 
                                                    sigma = Sigma)
                                 Data <- cbind(Data, rep(n,  (Observations[l] + 1)))
