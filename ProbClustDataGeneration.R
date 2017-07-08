@@ -140,10 +140,12 @@ for(i in 1:length(nPersons)){
                     }
                     nPhikqUsed =  nPhikqUsed + 1
                     
-                    # the assertions below are always met because of the while loop above
+                    # the assertions below are always met because of the while loop above:
                     # stopifnot(max(Mod(eigen(Phi_kq[ , ,1], symmetric = FALSE, only.values = TRUE)$value )) < 1 )
                     # stopifnot( sum(abs(Phi_kq)>= 1) == 0)
                     
+                    # varima.sim() version 2.1-4 https://github.com/cran/portes/blob/master/R/varima.sim.R
+                    # intercepts are not specified, default value of zero is used
                     Data <- varima.sim(list(ar = Phi_kq, ma = NULL), n = (Observations[l] +1), k = numberVaribales, 
                                        sigma = Sigma)
                     # Data is array[rows hold numberVariables, col hold Observations]
